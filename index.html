@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>AI Depression Detector</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+  <h1>🧠 AI Depression Detector</h1>
+  <p class="subtitle">Analyze emotions from your text</p>
+
+  <textarea id="text" placeholder="Write your thoughts here..."></textarea>
+  <button class="main-btn" onclick="analyze()">Analyze</button>
+
+  <div id="loading" class="hidden">Analyzing...</div>
+
+  <div id="resultCard" class="card hidden">
+    <h2 id="resultText"></h2>
+
+    <div class="progress">
+      <div id="progressBar"></div>
+    </div>
+
+    <p id="confidenceText"></p>
+  </div>
+
+  <p class="disclaimer">
+    ⚠️ This is not a medical diagnosis tool.
+  </p>
+</div>
+
+<!-- Chatbot Button -->
+<div id="chatbotBtn">💬</div>
+
+<!-- Chatbot Popup -->
+<div id="chatbotPopup" class="hidden">
+  <div class="chatbot-header">
+    💬 Mental Health Chatbot
+    <span id="closeBtn">✖</span>
+  </div>
+
+  <div id="chatBox" class="chat-box"></div>
+
+  <input type="text" id="userMessage" placeholder="Type your message..." />
+  <button onclick="sendMessage()">Send</button>
+</div>
+
+<script src="script.js" defer></script>
+<script src="chatbot.js" defer></script>
+
+</body>
+</html>
