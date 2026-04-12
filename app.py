@@ -18,9 +18,9 @@ def serve_index():
     return send_from_directory(".", "index.html")
 
 # 👉 static files (safe)
-@app.route("/static/<path:filename>")
-def serve_static(filename):
-    return send_from_directory(".", filename)
+@app.route("/<path:path>")
+def serve_static(path):
+    return send_from_directory(".", path)
 
 # ===== Prediction API =====
 @app.route("/predict", methods=["POST"])
