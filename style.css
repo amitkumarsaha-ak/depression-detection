@@ -6,10 +6,9 @@ body {
   color: white;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
   align-items: center;
   min-height: 100vh;
-  padding: 40px 0;
+  padding: 40px 10px; /* 🔥 mobile padding fix */
 }
 
 /* ================= Container ================= */
@@ -17,7 +16,8 @@ body {
   background: #111827;
   padding: 30px;
   border-radius: 20px;
-  width: 420px;
+  width: 100%;
+  max-width: 420px; /* 🔥 responsive */
   text-align: center;
   box-shadow: 0 10px 30px rgba(0,0,0,0.5);
   margin-bottom: 30px;
@@ -45,6 +45,7 @@ textarea {
   resize: none;
   background: #1f2937;
   color: white;
+  outline: none; /* 🔥 remove ugly border */
 }
 
 /* ================= Buttons ================= */
@@ -72,24 +73,11 @@ button.main-btn:hover {
   background: #2563eb;
 }
 
-/* Chatbot send button */
-.chatbot-container button,
-#chatbotPopup button {
-  width: 25%;
-  padding: 8px;
-  background: #3b82f6;
-  color: white;
-}
-
-.chatbot-container button:hover,
-#chatbotPopup button:hover {
-  background: #2563eb;
-}
-
 /* ================= Loading ================= */
 #loading {
   margin-top: 15px;
   color: #facc15;
+  font-weight: bold;
 }
 
 /* ================= Result Card ================= */
@@ -125,23 +113,19 @@ button.main-btn:hover {
 }
 
 /* ================= Chatbot Styles ================= */
-.chatbot-container,
 #chatbotPopup {
   background: #111827;
   padding: 15px 20px;
   border-radius: 20px;
-  width: 420px;
+  width: 90%;
+  max-width: 350px; /* 🔥 responsive */
   box-shadow: 0 10px 30px rgba(0,0,0,0.5);
   display: flex;
   flex-direction: column;
-}
 
-/* Chat popup specific */
-#chatbotPopup {
   position: fixed;
   bottom: 100px;
-  right: 30px;
-  width: 350px;
+  right: 20px;
   z-index: 1000;
 }
 
@@ -175,13 +159,14 @@ button.main-btn:hover {
   margin-right: 5px;
   background: #1f2937;
   color: white;
+  outline: none;
 }
 
 /* ================= Floating Chatbot Button ================= */
 #chatbotBtn {
   position: fixed;
   bottom: 30px;
-  right: 30px;
+  right: 20px;
   width: 60px;
   height: 60px;
   background: #3b82f6;
@@ -215,6 +200,19 @@ button.main-btn:hover {
 .hidden {
   display: none;
 }
-#chatbotPopup.hidden {
-  display: none !important;
+
+/* ================= Mobile Fix 🔥 ================= */
+@media (max-width: 480px) {
+  .container {
+    padding: 20px;
+  }
+
+  textarea {
+    height: 100px;
+  }
+
+  #chatbotPopup {
+    right: 10px;
+    bottom: 90px;
+  }
 }

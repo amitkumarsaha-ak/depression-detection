@@ -6,7 +6,6 @@ function analyze() {
         return;
     }
 
-    // Show loading, hide previous results
     const loading = document.getElementById("loading");
     const resultCard = document.getElementById("resultCard");
     const progressBar = document.getElementById("progressBar");
@@ -15,7 +14,8 @@ function analyze() {
     resultCard.classList.add("hidden");
     progressBar.style.width = "0%";
 
-    fetch("http://127.0.0.1:5000/predict", {
+    // ✅ FIX: use relative URL (IMPORTANT)
+    fetch("/predict", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -35,17 +35,16 @@ function analyze() {
 
         if (data.prediction === 1) {
             resultText = "😟 Depressed";
-            color = "#ef4444"; // Red for depressed
+            color = "#ef4444";
         } else {
             resultText = "😊 Not Depressed";
-            color = "#22c55e"; // Green for not depressed
+            color = "#22c55e";
         }
 
         document.getElementById("resultText").innerText = resultText;
-        document.getElementById("confidenceText").innerText = 
+        document.getElementById("confidenceText").innerText =
             `Confidence: ${data.confidence}%`;
 
-        // Animate progress bar smoothly
         progressBar.style.transition = "width 1s ease-in-out, background 0.5s";
         progressBar.style.width = `${data.confidence}%`;
         progressBar.style.background = color;

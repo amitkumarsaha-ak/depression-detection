@@ -1,24 +1,32 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, send_from_directory
 from flask_cors import CORS
 import pickle
 import requests
+import os
 
 # ===== Flask setup =====
 app = Flask(__name__)
 CORS(app)
 
-# ===== LR MODEL (fallback) =====
+# ===== Load LR MODEL (fallback) =====
 model = pickle.load(open("model.pkl", "rb"))
 vectorizer = pickle.load(open("vectorizer.pkl", "rb"))
 
+# ===== Serve Frontend =====
 @app.route("/")
-def home():
-    return "API is running 🚀"
+def serve_index():
+    return send_from_directory(".", "index.html")
 
+# 👉 static files (safe)
+@app.route("/static/<path:filename>")
+def serve_static(filename):
+    return send_from_directory(".", filename)
+
+# ===== Prediction API =====
 @app.route("/predict", methods=["POST"])
 def predict():
     data = request.json
-    text = data["text"]
+    text = data.get("text", "")
 
     try:
         print("👉 Calling BiLSTM API...")
@@ -30,18 +38,13 @@ def predict():
             verify=False
         )
 
-        print("👉 Status:", response.status_code)
-        print("👉 Response:", response.text)
-
         result = response.json()
 
-        confidence = float(result["confidence"])
-        prediction = int(result["prediction"])
+        confidence = float(result.get("confidence", 0))
+        prediction = int(result.get("prediction", 0))
 
         # 🔥 Low confidence fallback
         if confidence < 10:
-            print("⚠️ Low confidence → using LR")
-
             vector = vectorizer.transform([text])
             pred = model.predict(vector)[0]
             conf = max(model.predict_proba(vector)[0])
@@ -58,7 +61,6 @@ def predict():
 
     except Exception as e:
         print("❌ ERROR:", e)
-        print("👉 Using LR fallback")
 
         vector = vectorizer.transform([text])
         pred = model.predict(vector)[0]
@@ -69,5 +71,7 @@ def predict():
             "confidence": round(conf * 100, 2)
         })
 
+# ===== Run server =====
 if __name__ == "__main__":
-    app.run(debug=True)
+    port = int(os.environ.get("PORT", 10000))
+    app.run(host="0.0.0.0", port=port)
