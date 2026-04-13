@@ -119,9 +119,6 @@ button.main-btn:hover {
   width: 90%;
   max-width: 350px;
   box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-
-  /* ✅ FIX: removed display:none */
-
   flex-direction: column;
   position: fixed;
   bottom: 100px;
@@ -129,7 +126,6 @@ button.main-btn:hover {
   z-index: 1000;
 }
 
-/* 🔥 WHEN ACTIVE */
 #chatbotPopup.show {
   display: flex;
 }
@@ -204,6 +200,37 @@ button.main-btn:hover {
 /* ================= Utility ================= */
 .hidden {
   display: none !important;
+}
+
+/* ================= NEW ADD (IMPORTANT) ================= */
+
+/* SECTION (Home / About / FAQ) */
+.section {
+  width: 100%;
+  max-width: 800px;
+  margin: auto;
+  padding: 40px 20px;
+  text-align: left;
+}
+
+/* Navbar */
+.navbar {
+  width: 100%;
+  max-width: 1000px;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 30px;
+}
+
+.menu a {
+  margin-left: 20px;
+  color: #9ca3af;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.menu a:hover {
+  color: white;
 }
 
 /* ================= Mobile Fix ================= */

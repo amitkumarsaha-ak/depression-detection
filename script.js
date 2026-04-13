@@ -1,6 +1,7 @@
 // 🔥 GLOBAL VARIABLE
 window.lastPrediction = null;
 
+// ================= ANALYZE FUNCTION =================
 function analyze() {
     const text = document.getElementById("text").value.trim();
 
@@ -41,7 +42,7 @@ function analyze() {
         const chatbotPopup = document.getElementById("chatbotPopup");
 
         if (data.prediction === 1) {
-            resultText = "😟 Depressed";
+            resultText = "Depressed";
             color = "#ef4444";
 
             // 🔥 OPEN CHATBOT
@@ -53,15 +54,17 @@ function analyze() {
             const chatBox = document.getElementById("chatBox");
             chatBox.innerHTML = "";
 
-            // 🔥 AUTO MESSAGE (FIXED)
+            // 🔥 AUTO MESSAGE
             setTimeout(() => {
                 if (typeof window.appendAutoBotMessage === "function") {
-                    window.appendAutoBotMessage("I noticed you might be feeling low 💙 I'm here for you. Want to talk?");
+                    window.appendAutoBotMessage(
+                        "I noticed you might be feeling low 💙 I'm here for you. Want to talk?"
+                    );
                 }
             }, 400);
 
         } else {
-            resultText = "😊 Not Depressed";
+            resultText = "Non Depressed";
             color = "#22c55e";
 
             // 🔥 CLOSE CHATBOT
@@ -83,4 +86,21 @@ function analyze() {
         alert("Error connecting to the server. Please try again.");
         console.error("Fetch error:", err);
     });
+}
+
+// ================= SECTION NAVIGATION =================
+function showSection(section) {
+    const home = document.getElementById("homeSection");
+    const about = document.getElementById("aboutSection");
+    const faq = document.getElementById("faqSection");
+
+    // hide all
+    home.classList.add("hidden");
+    about.classList.add("hidden");
+    faq.classList.add("hidden");
+
+    // show selected
+    if (section === "home") home.classList.remove("hidden");
+    if (section === "about") about.classList.remove("hidden");
+    if (section === "faq") faq.classList.remove("hidden");
 }

@@ -1,54 +1,110 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>AI Depression Detector</title>
-
+  <title>MindTrack - AI Depression Detector</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<div class="container">
-  <h1> Depression Detector</h1>
-  <p class="subtitle">Analyze emotions from your text</p>
-
-  <textarea id="text" placeholder="Write your thoughts here..."></textarea>
-  <button class="main-btn" onclick="analyze()">Analyze</button>
-
-  <div id="loading" class="hidden">Analyzing...</div>
-
-  <div id="resultCard" class="card hidden">
-    <h2 id="resultText"></h2>
-
-    <div class="progress">
-      <div id="progressBar"></div>
-    </div>
-
-    <p id="confidenceText"></p>
+<!-- NAVBAR -->
+<div class="navbar">
+  <div class="logo">🧠 MindTrack</div>
+  <div class="menu">
+    <a href="#home">Home</a>
+    <a href="#about">About</a>
+    <a href="#faq">FAQ</a>
   </div>
-
-  <p class="disclaimer">
-    ⚠️ This is not a medical diagnosis tool.
-  </p>
 </div>
 
-<!-- ✅ ADDED CHATBOT BUTTON (ONLY FIX) -->
+<!-- ================= HERO (HOME) ================= -->
+<section id="home" class="section">
+
+  <h1>Depression Detector</h1>
+
+  <p class="subtitle">
+    Analyze your emotions using advanced machine learning and understand your mental state better.
+  </p>
+
+  <div class="container">
+    <textarea id="text" placeholder="Write your thoughts..."></textarea>
+    <button class="main-btn" onclick="analyze()">Analyze →</button>
+
+    <div id="loading" class="hidden">Analyzing...</div>
+
+    <div id="resultCard" class="card hidden">
+      <h2 id="resultText"></h2>
+
+      <div class="progress">
+        <div id="progressBar"></div>
+      </div>
+
+      <p id="confidenceText"></p>
+    </div>
+  </div>
+
+  <!-- FEATURES -->
+  <div style="display:flex; gap:20px; justify-content:center; margin-top:40px;">
+    <div class="card">⚡ Real-time Analysis</div>
+    <div class="card">🧠 AI Powered</div>
+    <div class="card">💬 Smart Chatbot</div>
+  </div>
+
+</section>
+
+<!-- ================= ABOUT ================= -->
+<section id="about" class="section">
+  <h2>About Depression</h2>
+
+  <p>
+    Depression is a serious mental health condition that affects how a person feels, thinks, and behaves.
+    It can lead to emotional and physical problems and reduce a person's ability to function in daily life.
+  </p>
+
+  <p>
+    People who are not depressed usually maintain emotional balance and can handle daily stress effectively.
+    However, individuals with depression may experience persistent sadness, loss of interest, low energy,
+    and difficulty concentrating.
+  </p>
+
+  <p>
+    Early detection and support can help improve mental health and overall well-being.
+  </p>
+</section>
+
+<!-- ================= FAQ ================= -->
+<section id="faq" class="section">
+  <h2>Frequently Asked Questions</h2>
+
+  <p><b>Q: What is depression?</b><br>
+  A: Depression is a mental health disorder that affects mood, thoughts, and daily activities.</p>
+
+  <p><b>Q: How does this AI work?</b><br>
+  A: It analyzes your text input using machine learning to detect emotional patterns.</p>
+
+  <p><b>Q: Is this a medical diagnosis?</b><br>
+  A: No. This tool is only for educational and awareness purposes.</p>
+
+  <p><b>Q: What should I do if I feel depressed?</b><br>
+  A: You should talk to a trusted person or seek help from a professional.</p>
+</section>
+
+<!-- ================= CHATBOT ================= -->
 <div id="chatbotBtn">💬</div>
 
-<!-- ✅ Chatbot Popup -->
 <div id="chatbotPopup" class="hidden">
   <div class="chatbot-header">
-    💬 Mental Health Chatbot
+    💬 Chatbot
     <span id="closeBtn">✖</span>
   </div>
 
   <div id="chatBox" class="chat-box"></div>
 
-  <input type="text" id="userMessage" placeholder="Type your message..." />
+  <input type="text" id="userMessage" placeholder="Type..." />
   <button onclick="sendMessage()">Send</button>
 </div>
 
-<script src="script.js" defer></script>
-<script src="chatbot.js" defer></script>
+<script src="script.js"></script>
+<script src="chatbot.js"></script>
 
 </body>
 </html>
