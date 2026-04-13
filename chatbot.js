@@ -5,12 +5,14 @@ document.addEventListener("DOMContentLoaded", () => {
     const inputEl = document.getElementById("userMessage");
     const chatBox = document.getElementById("chatBox");
 
-    // 🔥 Ensure hidden on load (no .show)
+    // 🔥 FORCE HIDE ON LOAD (FINAL FIX)
     chatbotPopup.classList.remove("show");
+    chatbotPopup.style.display = "none";  // ⭐ VERY IMPORTANT
 
     // 🔥 Close chatbot
     closeBtn.addEventListener("click", () => {
         chatbotPopup.classList.remove("show");
+        chatbotPopup.style.display = "none";  // ⭐ IMPORTANT
         chatBox.innerHTML = "";
         inputEl.value = "";
     });
@@ -77,7 +79,7 @@ document.addEventListener("DOMContentLoaded", () => {
         inputEl.value = "";
     };
 
-    // 🔥 Auto message (script.js call করবে)
+    // 🔥 Auto message
     window.appendAutoBotMessage = function (message) {
         const div = document.createElement("div");
         div.className = "bot";
@@ -95,7 +97,7 @@ document.addEventListener("DOMContentLoaded", () => {
         container.appendChild(div);
     }
 
-    // 🔥 Enter key support
+    // 🔥 Enter key
     inputEl.addEventListener("keypress", (e) => {
         if (e.key === "Enter") {
             e.preventDefault();

@@ -44,10 +44,11 @@ function analyze() {
             resultText = "😟 Depressed";
             color = "#ef4444";
 
-            // 🔥 OPEN (NEW SYSTEM)
+            // 🔥 OPEN CHATBOT (FINAL FIX)
             chatbotPopup.classList.add("show");
+            chatbotPopup.style.display = "flex";  // ⭐ VERY IMPORTANT
 
-            // 🔥 CLEAR OLD CHAT (optional but clean)
+            // 🔥 CLEAR OLD CHAT
             const chatBox = document.getElementById("chatBox");
             chatBox.innerHTML = "";
 
@@ -62,8 +63,9 @@ function analyze() {
             resultText = "😊 Not Depressed";
             color = "#22c55e";
 
-            // 🔥 CLOSE if not depressed (optional)
+            // 🔥 CLOSE CHATBOT
             chatbotPopup.classList.remove("show");
+            chatbotPopup.style.display = "none"; // ⭐ IMPORTANT
         }
 
         document.getElementById("resultText").innerText = resultText;
