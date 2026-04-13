@@ -1,5 +1,6 @@
-// 🔥 GLOBAL VARIABLE (VERY IMPORTANT)
-let lastPrediction = null;
+// 🔥 GLOBAL VARIABLE (chatbot use করবে)
+window.lastPrediction = null;
+window.chatbotOpenedOnce = false; // 👉 prevent repeat auto message
 
 function analyze() {
     const text = document.getElementById("text").value.trim();
@@ -32,8 +33,8 @@ function analyze() {
         loading.classList.add("hidden");
         resultCard.classList.remove("hidden");
 
-        // ✅ SAVE prediction (chatbot use করবে)
-        lastPrediction = data.prediction;
+        // ✅ GLOBAL SET
+        window.lastPrediction = data.prediction;
 
         let resultText = "";
         let color = "";
@@ -42,14 +43,23 @@ function analyze() {
             resultText = "😟 Depressed";
             color = "#ef4444";
 
-            // 🔥 CHATBOT AUTO OPEN
             const chatbotPopup = document.getElementById("chatbotPopup");
-            chatbotPopup.classList.remove("hidden");
 
-            // 🔥 AUTO BOT MESSAGE
-            setTimeout(() => {
-                appendAutoBotMessage("I noticed you might be feeling low 💙 I'm here for you. Want to talk?");
-            }, 500);
+            // ✅ ONLY OPEN IF CLOSED
+            if (chatbotPopup.classList.contains("hidden")) {
+                chatbotPopup.classList.remove("hidden");
+
+                // ✅ SEND MESSAGE ONLY ONCE
+                if (!window.chatbotOpenedOnce) {
+                    setTimeout(() => {
+                        if (typeof appendAutoBotMessage === "function") {
+                            appendAutoBotMessage("I noticed you might be feeling low 💙 I'm here for you. Want to talk?");
+                        }
+                    }, 500);
+
+                    window.chatbotOpenedOnce = true;
+                }
+            }
 
         } else {
             resultText = "😊 Not Depressed";
