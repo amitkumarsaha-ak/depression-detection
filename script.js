@@ -1,6 +1,5 @@
-// 🔥 GLOBAL VARIABLE (chatbot use করবে)
+// 🔥 GLOBAL VARIABLE
 window.lastPrediction = null;
-window.chatbotOpenedOnce = false; // 👉 prevent repeat auto message
 
 function analyze() {
     const text = document.getElementById("text").value.trim();
@@ -45,21 +44,15 @@ function analyze() {
 
             const chatbotPopup = document.getElementById("chatbotPopup");
 
-            // ✅ ONLY OPEN IF CLOSED
-            if (chatbotPopup.classList.contains("hidden")) {
-                chatbotPopup.classList.remove("hidden");
+            // 🔥 ALWAYS OPEN
+            chatbotPopup.classList.remove("hidden");
 
-                // ✅ SEND MESSAGE ONLY ONCE
-                if (!window.chatbotOpenedOnce) {
-                    setTimeout(() => {
-                        if (typeof appendAutoBotMessage === "function") {
-                            appendAutoBotMessage("I noticed you might be feeling low 💙 I'm here for you. Want to talk?");
-                        }
-                    }, 500);
-
-                    window.chatbotOpenedOnce = true;
+            // 🔥 ALWAYS SHOW MESSAGE
+            setTimeout(() => {
+                if (typeof appendAutoBotMessage === "function") {
+                    appendAutoBotMessage("I noticed you might be feeling low 💙 I'm here for you. Want to talk?");
                 }
-            }
+            }, 500);
 
         } else {
             resultText = "😊 Not Depressed";
