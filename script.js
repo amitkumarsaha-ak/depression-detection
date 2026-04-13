@@ -44,18 +44,19 @@ function analyze() {
             resultText = "😟 Depressed";
             color = "#ef4444";
 
-            // 🔥 OPEN CHATBOT (FINAL FIX)
+            // 🔥 OPEN CHATBOT
+            chatbotPopup.classList.remove("hidden");
             chatbotPopup.classList.add("show");
-            chatbotPopup.style.display = "flex";  // ⭐ VERY IMPORTANT
+            chatbotPopup.style.display = "flex";
 
             // 🔥 CLEAR OLD CHAT
             const chatBox = document.getElementById("chatBox");
             chatBox.innerHTML = "";
 
-            // 🔥 AUTO MESSAGE
+            // 🔥 AUTO MESSAGE (FIXED)
             setTimeout(() => {
-                if (typeof appendAutoBotMessage === "function") {
-                    appendAutoBotMessage("I noticed you might be feeling low 💙 I'm here for you. Want to talk?");
+                if (typeof window.appendAutoBotMessage === "function") {
+                    window.appendAutoBotMessage("I noticed you might be feeling low 💙 I'm here for you. Want to talk?");
                 }
             }, 400);
 
@@ -65,7 +66,8 @@ function analyze() {
 
             // 🔥 CLOSE CHATBOT
             chatbotPopup.classList.remove("show");
-            chatbotPopup.style.display = "none"; // ⭐ IMPORTANT
+            chatbotPopup.classList.add("hidden");
+            chatbotPopup.style.display = "none";
         }
 
         document.getElementById("resultText").innerText = resultText;

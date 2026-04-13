@@ -120,8 +120,7 @@ button.main-btn:hover {
   max-width: 350px;
   box-shadow: 0 10px 30px rgba(0,0,0,0.5);
 
-  /* 🔥 IMPORTANT FIX */
-  display: none;  /* default hidden */
+  /* ✅ FIX: removed display:none */
 
   flex-direction: column;
   position: fixed;

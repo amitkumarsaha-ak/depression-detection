@@ -4,15 +4,25 @@ document.addEventListener("DOMContentLoaded", () => {
     const closeBtn = document.getElementById("closeBtn");
     const inputEl = document.getElementById("userMessage");
     const chatBox = document.getElementById("chatBox");
+    const chatbotBtn = document.getElementById("chatbotBtn"); // ⭐ ADD
 
-    // 🔥 FORCE HIDE ON LOAD (FINAL FIX)
+    // 🔥 FIXED (NO display:none)
     chatbotPopup.classList.remove("show");
-    chatbotPopup.style.display = "none";  // ⭐ VERY IMPORTANT
+    chatbotPopup.classList.add("hidden");
+
+    // 🔥 BUTTON CLICK (ONLY IF DEPRESSED) ⭐ ADD
+    chatbotBtn.addEventListener("click", () => {
+        if (window.lastPrediction === 1) {
+            chatbotPopup.classList.remove("hidden");
+            chatbotPopup.classList.add("show");
+            chatbotPopup.style.display = "flex";
+        }
+    });
 
     // 🔥 Close chatbot
     closeBtn.addEventListener("click", () => {
         chatbotPopup.classList.remove("show");
-        chatbotPopup.style.display = "none";  // ⭐ IMPORTANT
+        chatbotPopup.classList.add("hidden");
         chatBox.innerHTML = "";
         inputEl.value = "";
     });
