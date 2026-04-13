@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const inputEl = document.getElementById("userMessage");
     const chatBox = document.getElementById("chatBox");
 
-    // Toggle chatbot
+    // 🔥 Toggle chatbot
     chatbotBtn.addEventListener("click", () => {
         chatbotPopup.classList.toggle("hidden");
 
@@ -16,14 +16,14 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    // Close chatbot
+    // 🔥 Close chatbot
     closeBtn.addEventListener("click", () => {
         chatbotPopup.classList.add("hidden");
         chatBox.innerHTML = "";
         inputEl.value = "";
     });
 
-    // Send message
+    // 🔥 Send message
     window.sendMessage = function () {
         const input = inputEl.value.trim();
         if (!input) return;
@@ -31,49 +31,80 @@ document.addEventListener("DOMContentLoaded", () => {
         appendMessage(chatBox, input, "user");
 
         const text = input.toLowerCase();
-        let response = "Thanks for sharing. You're not alone 💙";
+        let response = "";
 
-        const keywords = [
-            {
-                words: ["sad", "depressed", "hopeless", "empty", "lonely"],
-                reply: "I'm really sorry you're feeling this way 💙 You're not alone. Try talking to someone you trust."
-            },
-            {
-                words: ["happy", "good", "excited", "great"],
-                reply: "That's wonderful 😊 Keep enjoying those positive moments!"
-            },
-            {
-                words: ["stress", "anxious", "help", "tired"],
-                reply: "Take a deep breath 🌿 Maybe take a short break or talk to someone."
+        // 🔴 DEPRESSED MODE (ML result থেকে)
+        if (window.lastPrediction === 1) {
+
+            response = "I'm here for you 💙 Tell me what's on your mind.";
+
+            if (text.includes("sad") || text.includes("depressed")) {
+                response = "I'm really sorry you're feeling this way 💙 You are not alone.";
             }
-        ];
-
-        // Keyword matching
-        for (const kw of keywords) {
-            if (kw.words.some(word => text.includes(word))) {
-                response = kw.reply;
-                break;
+            else if (text.includes("alone") || text.includes("lonely")) {
+                response = "Feeling alone can be really heavy 💙 Want to share what's going on?";
+            }
+            else if (text.includes("help")) {
+                response = "It's okay to ask for help 💙 Try reaching out to someone you trust.";
+            }
+            else if (text.includes("tired") || text.includes("exhausted")) {
+                response = "It sounds like you're really tired 😔 Maybe take a small rest.";
+            }
+            else if (text.includes("suicide") || text.includes("die")) {
+                response = "I'm really sorry you're feeling this way 💙 Please talk to someone you trust or a professional immediately.";
             }
         }
 
-        // Simulate typing delay (UX improvement 🔥)
+        // 🟢 NORMAL MODE
+        else {
+
+            response = "Thanks for sharing 😊";
+
+            if (text.includes("happy") || text.includes("good") || text.includes("great")) {
+                response = "That's wonderful 😊 Keep enjoying those moments!";
+            }
+            else if (text.includes("stress") || text.includes("anxious")) {
+                response = "Take a deep breath 🌿 Maybe take a short break.";
+            }
+            else if (text.includes("tired")) {
+                response = "You might need some rest 😴 Take care of yourself!";
+            }
+        }
+
+        // 🔥 Typing effect
+        const typing = document.createElement("div");
+        typing.className = "bot";
+        typing.textContent = "Typing...";
+        chatBox.appendChild(typing);
+
         setTimeout(() => {
+            typing.remove();
             appendMessage(chatBox, response, "bot");
             chatBox.scrollTop = chatBox.scrollHeight;
-        }, 500);
+        }, 800);
 
         inputEl.value = "";
     };
 
-    // Append message function
-    function appendMessage(container, message, sender) {
+    // 🔥 Append message (GLOBAL usable)
+    window.appendMessage = function (container, message, sender) {
         const div = document.createElement("div");
         div.className = sender;
         div.textContent = message;
         container.appendChild(div);
-    }
+    };
 
-    // Enter key support
+    // 🔥 Auto bot message (script.js use করবে)
+    window.appendAutoBotMessage = function (message) {
+        const div = document.createElement("div");
+        div.className = "bot";
+        div.textContent = message;
+
+        chatBox.appendChild(div);
+        chatBox.scrollTop = chatBox.scrollHeight;
+    };
+
+    // 🔥 Enter key support
     inputEl.addEventListener("keypress", (e) => {
         if (e.key === "Enter") {
             e.preventDefault();

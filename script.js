@@ -1,3 +1,6 @@
+// 🔥 GLOBAL VARIABLE (VERY IMPORTANT)
+let lastPrediction = null;
+
 function analyze() {
     const text = document.getElementById("text").value.trim();
 
@@ -14,7 +17,6 @@ function analyze() {
     resultCard.classList.add("hidden");
     progressBar.style.width = "0%";
 
-    // ✅ FIX: use relative URL (IMPORTANT)
     fetch("/predict", {
         method: "POST",
         headers: {
@@ -30,12 +32,25 @@ function analyze() {
         loading.classList.add("hidden");
         resultCard.classList.remove("hidden");
 
+        // ✅ SAVE prediction (chatbot use করবে)
+        lastPrediction = data.prediction;
+
         let resultText = "";
         let color = "";
 
         if (data.prediction === 1) {
             resultText = "😟 Depressed";
             color = "#ef4444";
+
+            // 🔥 CHATBOT AUTO OPEN
+            const chatbotPopup = document.getElementById("chatbotPopup");
+            chatbotPopup.classList.remove("hidden");
+
+            // 🔥 AUTO BOT MESSAGE
+            setTimeout(() => {
+                appendAutoBotMessage("I noticed you might be feeling low 💙 I'm here for you. Want to talk?");
+            }, 500);
+
         } else {
             resultText = "😊 Not Depressed";
             color = "#22c55e";
