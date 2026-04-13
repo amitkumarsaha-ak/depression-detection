@@ -32,31 +32,38 @@ function analyze() {
         loading.classList.add("hidden");
         resultCard.classList.remove("hidden");
 
-        // ✅ GLOBAL SET
+        // ✅ SAVE prediction
         window.lastPrediction = data.prediction;
 
         let resultText = "";
         let color = "";
 
+        const chatbotPopup = document.getElementById("chatbotPopup");
+
         if (data.prediction === 1) {
             resultText = "😟 Depressed";
             color = "#ef4444";
 
-            const chatbotPopup = document.getElementById("chatbotPopup");
+            // 🔥 OPEN (NEW SYSTEM)
+            chatbotPopup.classList.add("show");
 
-            // 🔥 ALWAYS OPEN
-            chatbotPopup.classList.remove("hidden");
+            // 🔥 CLEAR OLD CHAT (optional but clean)
+            const chatBox = document.getElementById("chatBox");
+            chatBox.innerHTML = "";
 
-            // 🔥 ALWAYS SHOW MESSAGE
+            // 🔥 AUTO MESSAGE
             setTimeout(() => {
                 if (typeof appendAutoBotMessage === "function") {
                     appendAutoBotMessage("I noticed you might be feeling low 💙 I'm here for you. Want to talk?");
                 }
-            }, 500);
+            }, 400);
 
         } else {
             resultText = "😊 Not Depressed";
             color = "#22c55e";
+
+            // 🔥 CLOSE if not depressed (optional)
+            chatbotPopup.classList.remove("show");
         }
 
         document.getElementById("resultText").innerText = resultText;

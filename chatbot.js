@@ -5,12 +5,12 @@ document.addEventListener("DOMContentLoaded", () => {
     const inputEl = document.getElementById("userMessage");
     const chatBox = document.getElementById("chatBox");
 
-    // 🔥 Ensure hidden on load
-    chatbotPopup.classList.add("hidden");
+    // 🔥 Ensure hidden on load (no .show)
+    chatbotPopup.classList.remove("show");
 
     // 🔥 Close chatbot
     closeBtn.addEventListener("click", () => {
-        chatbotPopup.classList.add("hidden");
+        chatbotPopup.classList.remove("show");
         chatBox.innerHTML = "";
         inputEl.value = "";
     });
@@ -77,7 +77,7 @@ document.addEventListener("DOMContentLoaded", () => {
         inputEl.value = "";
     };
 
-    // 🔥 Auto message (script.js থেকে call হবে)
+    // 🔥 Auto message (script.js call করবে)
     window.appendAutoBotMessage = function (message) {
         const div = document.createElement("div");
         div.className = "bot";
@@ -87,7 +87,7 @@ document.addEventListener("DOMContentLoaded", () => {
         chatBox.scrollTop = chatBox.scrollHeight;
     };
 
-    // 🔥 Append message helper
+    // 🔥 Append helper
     function appendMessage(container, message, sender) {
         const div = document.createElement("div");
         div.className = sender;

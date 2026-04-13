@@ -8,7 +8,7 @@ body {
   flex-direction: column;
   align-items: center;
   min-height: 100vh;
-  padding: 40px 10px; /* 🔥 mobile padding fix */
+  padding: 40px 10px;
 }
 
 /* ================= Container ================= */
@@ -17,7 +17,7 @@ body {
   padding: 30px;
   border-radius: 20px;
   width: 100%;
-  max-width: 420px; /* 🔥 responsive */
+  max-width: 420px;
   text-align: center;
   box-shadow: 0 10px 30px rgba(0,0,0,0.5);
   margin-bottom: 30px;
@@ -45,7 +45,7 @@ textarea {
   resize: none;
   background: #1f2937;
   color: white;
-  outline: none; /* 🔥 remove ugly border */
+  outline: none;
 }
 
 /* ================= Buttons ================= */
@@ -60,7 +60,6 @@ button:hover {
   opacity: 0.9;
 }
 
-/* Main button */
 button.main-btn {
   width: 100%;
   padding: 12px;
@@ -118,15 +117,22 @@ button.main-btn:hover {
   padding: 15px 20px;
   border-radius: 20px;
   width: 90%;
-  max-width: 350px; /* 🔥 responsive */
+  max-width: 350px;
   box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-  display: flex;
-  flex-direction: column;
 
+  /* 🔥 IMPORTANT FIX */
+  display: none;  /* default hidden */
+
+  flex-direction: column;
   position: fixed;
   bottom: 100px;
   right: 20px;
   z-index: 1000;
+}
+
+/* 🔥 WHEN ACTIVE */
+#chatbotPopup.show {
+  display: flex;
 }
 
 .chat-box {
@@ -198,10 +204,10 @@ button.main-btn:hover {
 
 /* ================= Utility ================= */
 .hidden {
-  display: none;
+  display: none !important;
 }
 
-/* ================= Mobile Fix 🔥 ================= */
+/* ================= Mobile Fix ================= */
 @media (max-width: 480px) {
   .container {
     padding: 20px;
