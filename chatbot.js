@@ -4,13 +4,11 @@ document.addEventListener("DOMContentLoaded", () => {
     const closeBtn = document.getElementById("closeBtn");
     const inputEl = document.getElementById("userMessage");
     const chatBox = document.getElementById("chatBox");
-    const chatbotBtn = document.getElementById("chatbotBtn"); // ⭐ ADD
+    const chatbotBtn = document.getElementById("chatbotBtn");
 
-    // 🔥 FIXED (NO display:none)
     chatbotPopup.classList.remove("show");
     chatbotPopup.classList.add("hidden");
 
-    // 🔥 BUTTON CLICK (ONLY IF DEPRESSED) ⭐ ADD
     chatbotBtn.addEventListener("click", () => {
         if (window.lastPrediction === 1) {
             chatbotPopup.classList.remove("hidden");
@@ -19,7 +17,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    // 🔥 Close chatbot
     closeBtn.addEventListener("click", () => {
         chatbotPopup.classList.remove("show");
         chatbotPopup.classList.add("hidden");
@@ -27,7 +24,6 @@ document.addEventListener("DOMContentLoaded", () => {
         inputEl.value = "";
     });
 
-    // 🔥 Send message
     window.sendMessage = function () {
         const input = inputEl.value.trim();
         if (!input) return;
@@ -37,7 +33,6 @@ document.addEventListener("DOMContentLoaded", () => {
         const text = input.toLowerCase();
         let response = "";
 
-        // 🔴 Depressed mode
         if (window.lastPrediction === 1) {
 
             response = "I'm here for you, Tell me what's on your mind.";
@@ -59,7 +54,6 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         }
 
-        // 🟢 Normal mode
         else {
             response = "Thanks for sharing";
 
@@ -74,7 +68,6 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         }
 
-        // 🔥 Typing effect
         const typing = document.createElement("div");
         typing.className = "bot";
         typing.textContent = "Typing...";
@@ -89,7 +82,6 @@ document.addEventListener("DOMContentLoaded", () => {
         inputEl.value = "";
     };
 
-    // 🔥 Auto message
     window.appendAutoBotMessage = function (message) {
         const div = document.createElement("div");
         div.className = "bot";
@@ -99,7 +91,6 @@ document.addEventListener("DOMContentLoaded", () => {
         chatBox.scrollTop = chatBox.scrollHeight;
     };
 
-    // 🔥 Append helper
     function appendMessage(container, message, sender) {
         const div = document.createElement("div");
         div.className = sender;
@@ -107,7 +98,6 @@ document.addEventListener("DOMContentLoaded", () => {
         container.appendChild(div);
     }
 
-    // 🔥 Enter key
     inputEl.addEventListener("keypress", (e) => {
         if (e.key === "Enter") {
             e.preventDefault();

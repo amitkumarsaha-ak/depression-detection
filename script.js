@@ -1,7 +1,5 @@
-// 🔥 GLOBAL VARIABLE
 window.lastPrediction = null;
 
-// ================= ANALYZE FUNCTION =================
 function analyze() {
     const text = document.getElementById("text").value.trim();
 
@@ -33,7 +31,6 @@ function analyze() {
         loading.classList.add("hidden");
         resultCard.classList.remove("hidden");
 
-        // ✅ SAVE prediction
         window.lastPrediction = data.prediction;
 
         let resultText = "";
@@ -45,16 +42,13 @@ function analyze() {
             resultText = "Depressed";
             color = "#ef4444";
 
-            // 🔥 OPEN CHATBOT
             chatbotPopup.classList.remove("hidden");
             chatbotPopup.classList.add("show");
             chatbotPopup.style.display = "flex";
 
-            // 🔥 CLEAR OLD CHAT
             const chatBox = document.getElementById("chatBox");
             chatBox.innerHTML = "";
 
-            // 🔥 AUTO MESSAGE
             setTimeout(() => {
                 if (typeof window.appendAutoBotMessage === "function") {
                     window.appendAutoBotMessage(
@@ -67,7 +61,6 @@ function analyze() {
             resultText = "Non Depressed";
             color = "#22c55e";
 
-            // 🔥 CLOSE CHATBOT
             chatbotPopup.classList.remove("show");
             chatbotPopup.classList.add("hidden");
             chatbotPopup.style.display = "none";
@@ -88,18 +81,15 @@ function analyze() {
     });
 }
 
-// ================= SECTION NAVIGATION =================
 function showSection(section) {
     const home = document.getElementById("homeSection");
     const about = document.getElementById("aboutSection");
     const faq = document.getElementById("faqSection");
 
-    // hide all
     home.classList.add("hidden");
     about.classList.add("hidden");
     faq.classList.add("hidden");
 
-    // show selected
     if (section === "home") home.classList.remove("hidden");
     if (section === "about") about.classList.remove("hidden");
     if (section === "faq") faq.classList.remove("hidden");

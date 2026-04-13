@@ -4,32 +4,27 @@ import pickle
 import requests
 import os
 
-# ===== Flask setup =====
 app = Flask(__name__)
 CORS(app)
 
-# ===== Load LR MODEL (fallback) =====
 model = pickle.load(open("model.pkl", "rb"))
 vectorizer = pickle.load(open("vectorizer.pkl", "rb"))
 
-# ===== Serve Frontend =====
 @app.route("/")
 def serve_index():
     return send_from_directory(".", "index.html")
 
-# 👉 static files (safe)
 @app.route("/<path:path>")
 def serve_static(path):
     return send_from_directory(".", path)
 
-# ===== Prediction API =====
 @app.route("/predict", methods=["POST"])
 def predict():
     data = request.json
     text = data.get("text", "")
 
     try:
-        print("👉 Calling BiLSTM API...")
+        print("Calling BiLSTM API...")
 
         response = requests.post(
             "https://education-image-slashed.ngrok-free.dev/predict",
@@ -43,7 +38,6 @@ def predict():
         confidence = float(result.get("confidence", 0))
         prediction = int(result.get("prediction", 0))
 
-        # 🔥 Low confidence fallback
         if confidence < 10:
             vector = vectorizer.transform([text])
             pred = model.predict(vector)[0]
@@ -60,7 +54,7 @@ def predict():
         })
 
     except Exception as e:
-        print("❌ ERROR:", e)
+        print("ERROR:", e)
 
         vector = vectorizer.transform([text])
         pred = model.predict(vector)[0]
@@ -71,7 +65,6 @@ def predict():
             "confidence": round(conf * 100, 2)
         })
 
-# ===== Run server =====
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 10000))
     app.run(host="0.0.0.0", port=port)
